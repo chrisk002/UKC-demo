@@ -1,8 +1,3 @@
-[all_vm]
-192.168.1.61
-192.168.1.148
-192.168.1.96
-
 [rhel_vm_01]
 192.168.1.61
 
@@ -11,3 +6,17 @@
 
 [rhel_vm_03]
 192.168.1.96
+
+[all:children]
+rhel_vm_01
+rhel_vm_02
+rhel_vm_03
+
+[db:children]
+rhel_vm_01
+
+[webhost:children]
+rhel_vm_02
+
+[proxy:children]
+rhel_vm_03
