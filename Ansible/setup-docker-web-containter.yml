@@ -7,9 +7,17 @@
       yum_repository:
         name: docker
         description: Repository containing docker packages
-        baseurl: https://download.docker.com/linux/rhel/8/s390x/stable
+        baseurl: https://download.docker.com/linux/centos/8/x86_64/stable/
         enabled: true
+        gpgcheck: no
             
+    - name: Remove incompatible packages
+      yum:
+        name:
+          - podman
+          - buildah
+        state: absent
+    
     - name: Install docker packages
       yum:
         name:
@@ -17,5 +25,4 @@
           - docker-ce-cli
           - containerd.io
         state: present
-
         
