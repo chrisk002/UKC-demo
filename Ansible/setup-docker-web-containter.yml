@@ -26,3 +26,18 @@
           - containerd.io
         state: present
         
+    - name: Install docker lib for python
+      pip:
+        name: docker
+        state: present
+        
+    - name: Ensure docker is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    
+    - name: Install docker httpd image
+      docker_image:
+        name: httpd
+        source: pull
