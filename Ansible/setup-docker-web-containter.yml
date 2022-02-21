@@ -1,0 +1,21 @@
+---
+
+- hosts: webhost
+  become: yes
+  tasks:
+    - name: Add repo for Docker
+      yum_repository:
+        name: docker
+        description: Repository containing docker packages
+        baseurl: https://download.docker.com/linux/rhel/8/s390x/stable
+        enabled: true
+            
+    - name: Install docker packages
+      yum:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+        
