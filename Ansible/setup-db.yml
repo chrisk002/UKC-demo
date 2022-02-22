@@ -1,8 +1,21 @@
 ---
--   name: Install required packages
-    hosts: db
+
+- hosts: db
+  become: yes
+  tasks:
     
-    tasks:
-    -   name: Install mariaDB at latest version
-        yum:
-            name: mariadb
+    - name: Install mariadb packages
+      yum:
+        name: 
+          - mariadb-server
+          - python3-PyMySQL
+        state: present
+        
+    - name: Start mariadb service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+        
+    - name: 
+        
