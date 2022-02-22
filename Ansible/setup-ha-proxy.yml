@@ -1,0 +1,22 @@
+---
+
+- hosts: proxy
+  become: yes
+  tasks:
+    
+    - name: Install haproxy package
+      yum:
+        name: haproxy
+        state: present
+    
+    - name: Update configuration file
+      copy:
+        dest: /etc/haproxy/haproxy.cfg
+        src: /mnt/d/UKC/GIT/WWW/haconfig.cfg
+        force: yes
+    
+    - name: Start haproxy service
+      service:
+        name: haproxy
+        state: started
+        enabled: yes

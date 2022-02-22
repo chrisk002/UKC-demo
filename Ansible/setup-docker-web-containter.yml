@@ -51,3 +51,4 @@
         interactive: yes
         ports: "80:80"
         volumes: /home/chris/webroot/:/usr/local/apache2/htdocs/
+        restart_policy: always
