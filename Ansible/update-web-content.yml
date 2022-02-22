@@ -1,0 +1,9 @@
+---
+
+- hosts: webhost
+  tasks:
+    - name: Update web content
+      copy:
+        dest: /home/chris/.
+        src: /mnt/d/UKC/GIT/WWW/webroot/.
+        force: yes
