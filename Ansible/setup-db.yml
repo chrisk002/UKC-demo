@@ -42,3 +42,11 @@
         state: import
         target: /home/chris/db-table-cfg.sql
         login_unix_socket: '/var/lib/mysql/mysql.sock'
+
+    - name: Create read-only user for tblExampleData in basic-web db
+      mysql_user:
+        name: ro-user
+        password: 123456
+        priv: basic-web.tblExampleData:SELECT
+        state: present
+        login_unix_socket: '/var/lib/mysql/mysql.sock'
