@@ -17,5 +17,28 @@
         state: started
         enabled: yes
         
-    - name: 
+    - name: Prevent access by anonymous users
+      mysql_user:
+        name: ''
+        host_all: True
+        state: absent
+        login_unix_socket: '/var/lib/mysql/mysql.sock'
         
+    - name: Create database
+      mysql_db:
+        name: basic-web
+        state: present
+        login_unix_socket: '/var/lib/mysql/mysql.sock'
+
+    - name: Copy sql import file to remote host
+      copy:
+        dest: /home/chris/db-table-cfg.sql
+        src: /mnt/d/UKC/GIT/WWW/db-table-cfg.sql
+        force: yes
+      
+    - name: Create table and insert data
+      mysql_db:
+        name: basic-web
+        state: import
+        target: /home/chris/db-table-cfg.sql
+        login_unix_socket: '/var/lib/mysql/mysql.sock'
