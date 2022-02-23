@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Update LOB packages for all servers
+      yum:
+        name:
+          - mariadb-server
+          - python3-PyMySQL
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - haproxy
+        state: latest
+        update_only: yes

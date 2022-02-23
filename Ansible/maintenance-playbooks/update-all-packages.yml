@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Update all packages for all servers
+      yum:
+        name: '*'
+        state: latest
+        update_only: yes

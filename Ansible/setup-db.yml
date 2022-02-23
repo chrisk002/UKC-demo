@@ -2,8 +2,15 @@
 
 - hosts: db
   become: yes
+  handlers:
+    - name: Import base sql config
+      mysql_db:
+        name: basic-web
+        state: import
+        target: /home/chris/db-table-cfg.sql
+        login_unix_socket: '/var/lib/mysql/mysql.sock'
+  
   tasks:
-    
     - name: Install mariadb packages
       yum:
         name: 
@@ -35,13 +42,7 @@
         dest: /home/chris/db-table-cfg.sql
         src: /mnt/d/UKC/GIT/WWW/db-table-cfg.sql
         force: yes
-      
-    - name: Create table and insert data
-      mysql_db:
-        name: basic-web
-        state: import
-        target: /home/chris/db-table-cfg.sql
-        login_unix_socket: '/var/lib/mysql/mysql.sock'
+      notify: Import base sql config
 
     - name: Create read-only user for basic-web db
       mysql_user:
