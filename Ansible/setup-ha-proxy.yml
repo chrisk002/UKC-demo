@@ -2,8 +2,14 @@
 
 - hosts: proxy
   become: yes
+  
+  handlers:
+    - name: Restart haproxy
+      service:
+        name: haproxy
+        state: restarted
+
   tasks:
-    
     - name: Install haproxy package
       yum:
         name: haproxy
@@ -14,6 +20,7 @@
         dest: /etc/haproxy/haproxy.cfg
         src: /mnt/d/UKC/GIT/WWW/haproxy.cfg
         force: yes
+      notify: Restart haproxy
     
     - name: Start haproxy service
       service:
