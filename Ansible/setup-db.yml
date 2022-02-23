@@ -43,10 +43,18 @@
         target: /home/chris/db-table-cfg.sql
         login_unix_socket: '/var/lib/mysql/mysql.sock'
 
-    - name: Create read-only user for tblExampleData in basic-web db
+    - name: Create read-only user for basic-web db
       mysql_user:
         name: ro-user
         password: 123456
-        priv: basic-web.tblExampleData:SELECT
+        host: '%'
+        priv: basic-web.*:SELECT
         state: present
         login_unix_socket: '/var/lib/mysql/mysql.sock'
+        
+    - name: Enable firewall access for HTTP
+      firewalld:
+        port: 3306/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes

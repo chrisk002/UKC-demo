@@ -37,18 +37,18 @@
         state: started
         enabled: yes
     
-    - name: Install docker httpd image
+    - name: Install docker httpd-php image
       docker_image:
-        name: httpd
+        name: polinux/httpd-php
         source: pull
         
-    - name: Run httpd container
+    - name: Run httpd-php container
       docker_container:
         name: WebServer
-        image: httpd
+        image: polinux/httpd-php
         state: started
         detach: yes
         interactive: yes
         ports: "80:80"
-        volumes: /home/chris/webroot/:/usr/local/apache2/htdocs/
+        volumes: /home/chris/webroot/:/var/www/html/
         restart_policy: always
