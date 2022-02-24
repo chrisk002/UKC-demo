@@ -52,3 +52,9 @@
         ports: "80:80"
         volumes: /home/chris/webroot/:/var/www/html/
         restart_policy: always
+
+    - name: Update web content
+      copy:
+        dest: /home/chris/.
+        src: /mnt/d/UKC/GIT/WWW/webroot/.
+        force: yes
